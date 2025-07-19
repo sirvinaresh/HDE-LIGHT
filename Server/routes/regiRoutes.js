@@ -1,0 +1,10 @@
+const express = require("express");
+const router = express.Router();
+const regi = require("../controllers/registrationController");
+const auth = require("../middleware/authtoken");
+router.get("/gets", regi.getRegis);
+router.get("/get/:id", regi.getRegi);
+router.post("/", regi.createRegi);
+router.put("/update/:id", regi.UpdateRegi);
+router.get("/delete/:id", regi.DeleteRegi);
+module.exports = router;

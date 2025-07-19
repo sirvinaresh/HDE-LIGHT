@@ -1,0 +1,15 @@
+.nav-link{
+    color: black;
+    font-size: 18px;
+}
+
+.out-btn{
+    background-color: #ffc107;
+    text-align: center;
+    border: 2px solid #ffc107;
+}
+
+.out-btn:hover{
+    background-color: white;
+    color: #ffc107;
+}

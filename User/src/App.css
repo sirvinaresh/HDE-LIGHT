@@ -1,0 +1,88 @@
+.menu {
+  position: relative;
+}
+
+.menu::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 3px;
+  left: 0;
+  bottom: 0px;
+  background-color: #d4a373;
+  border-radius: 52px !important;
+  transition: 0.5s;
+  transform-origin: right;
+}
+
+.menu:hover::after,
+.menu.active::after {
+  width: 100%;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  padding-bottom: 20px;
+  margin-top: 12px;
+}
+
+ul li {
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+ul li strong {
+  border-bottom: 2px solid #d4a373;
+}
+
+.contact-box {
+  background-image: url("./images/contact.webp");
+  background-size: cover;
+  height: 50vh;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.in-text {
+  text-decoration: none;
+  color: black;
+}
+
+.btn-link {
+  transition: 0.3s;
+}
+
+.btn-link:hover {
+  color: #d4a373;
+  font-weight: bold;
+}
+.active-cat {
+  color: #d4a373; /* Bootstrap primary */
+  font-weight: bold;
+}
+
+.card-dis{
+  transition: .3s;
+}
+.card-dis:hover{
+  transform: scale(1.1);
+}
+@media only screen and (max-width: 600px) {
+  .cate {
+    display: none;
+  }
+  .menu:hover::after,
+  .menu.active::after {
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .app-cat {
+    display: none;
+  }
+}
