@@ -47,7 +47,7 @@ function Details() {
         <Container className='my-5'>
             <Row>
                 <Col lg={6} md={6} sm={12} xs={12} className=' text-center'>
-                    <Image src={`${APIurl}/uploads/${record.image}`} className='shadow  rounded-3' fluid />
+                    <Image src={record.image} className='shadow  rounded-3' fluid />
                 </Col>
                 <Col lg={6} md={6} sm={12} xs={12} className='p-3'>
                     <h1>{record.lname}</h1>

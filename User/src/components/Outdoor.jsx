@@ -9,6 +9,7 @@ import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import { Link } from 'react-router-dom';
 import { APIurl } from '../utils';
+import { ScaleLoader } from 'react-spinners';
 
 function Outdoor() {
 
@@ -29,20 +30,25 @@ function Outdoor() {
 
     const [products,setproducts] = useState([]);
     const [active,setactive] = useState('antique-wall-light');
+    const [loading,setloading] = useState(false);
 
     const getCategory = (catSlug) => {
     setactive(catSlug);
-    localStorage.setItem('activeoutdoor',catSlug)
+    setloading(true)
+    sessionStorage.setItem('activeoutdoor',catSlug)
     axios.get(`${APIurl}/product/Outdoor/${catSlug}`)
       .then(res => setproducts(res.data))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(()=>setloading(false))
     }
 
     useEffect(()=>{
-        const savedcat = localStorage.getItem('activeoutdoor') || 'antique-wall-light';
+        const savedcat = sessionStorage.getItem('activeoutdoor') || 'antique-wall-light';
         setactive(savedcat)
+        setloading(true)
         axios.get(`${APIurl}/product/Outdoor/${savedcat}`)
         .then((res)=>{setproducts(res.data); console.log(res.data)})
+        .finally(()=>setloading(false))
     },[])
 
   return (
@@ -52,7 +58,7 @@ function Outdoor() {
 
             <Offcanvas show={show} onHide={handleClose} className="w-75">
                 <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                <Offcanvas.Title><span style={{color:'#d4a373'}}>Outdoor</span> Lights</Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <ul>
@@ -86,16 +92,24 @@ function Outdoor() {
                 </Col>
 
                 <Col className='' lg={9} md={8} sm={12} xs={12}>
-                    <Row>
+                    {
+                        loading ? 
+                        
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: '70vh', width: '100%' }}>
+                          <ScaleLoader color="#d4a373" />
+                        </div>
+                        
+                        : <Row>
                         {
                             products.map((val,i)=>{
                                 return(
                                     <Col lg={3} md={4} sm={6} xs={6} className='my-3 mt-5 ' key={i}>
                                         <Card className='border-0 shadow card-dis'>
                                             <Link to={`/details/${val._id}`} className=' stretched-link'></Link>
-                                            <Card.Img variant="top" className='p-2' src={`${APIurl}/uploads/${val.image}`} />
+                                            <Card.Img variant="top" className='p-2' src={val.image} />
                                             <Card.Body>
                                                 <Card.Title>{val.lname}</Card.Title>
+                                                <Card.Text>{val.model}</Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </Col>
@@ -103,6 +117,7 @@ function Outdoor() {
                             })  
                         }
                     </Row>
+                    }
                 </Col>
             </Row>
         </Container>

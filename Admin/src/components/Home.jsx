@@ -185,7 +185,9 @@ function Home() {
             if(values._id){
                 var res = await axios.post(`${APIurl}/update/${values._id}`,formData);
                 toast.success('Product Updated');
-                navi('/show');
+                setTimeout(()=>{
+                    navi('/show');
+                },1000)
                 console.log(res.data)
                 localStorage.removeItem('edititem')
             }
@@ -206,7 +208,7 @@ function Home() {
   const [username,setusername] = useState('');
 
   useEffect(()=>{
-    const editdata= JSON.parse(localStorage.getItem('edititem'))
+    const editdata= JSON.parse(sessionStorage.getItem('edititem'))
 
     if(editdata){
         setValues(editdata)
@@ -214,7 +216,7 @@ function Home() {
         handlesubcat({ target: { value: editdata.cat } });
     }
 
-    setusername(localStorage.getItem('name'));
+    setusername(sessionStorage.getItem('name'));
   },[])
  
   return (

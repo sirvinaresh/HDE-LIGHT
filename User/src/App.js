@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './components/Header';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Home from './components/Home';
 import Indoor from './components/Indoor';
 import Contact from './components/Contact';
@@ -9,8 +9,15 @@ import About from './components/About';
 import Details from './components/Details';
 import Outdoor from './components/Outdoor';
 import Footer from './components/Footer';
+import { useEffect } from 'react';
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  
   return (
     <div className="App">
       <Header/>

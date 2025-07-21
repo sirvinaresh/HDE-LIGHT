@@ -38,10 +38,10 @@ function Footer() {
 
               <Col md={6} lg={2} xl={3} className="mx-auto mt-3">
                 <h6 className="text-uppercase mb-4 font-weight-bold">Follow us</h6>
-                <a href="#" className="btn btn-outline-light btn-floating m-1 rounded-5"><FaFacebookF /></a>
-                <a href="#" className="btn btn-outline-light btn-floating m-1 rounded-5"><FaTwitter /></a>
-                <a href="#" className="btn btn-outline-light btn-floating m-1 rounded-5"><FaGoogle /></a>
-                <a href="#" className="btn btn-outline-light btn-floating m-1 rounded-5"><FaInstagram /></a>
+                <a className="btn btn-outline-light btn-floating m-1 rounded-5"><FaFacebookF /></a>
+                <a className="btn btn-outline-light btn-floating m-1 rounded-5"><FaTwitter /></a>
+                <a className="btn btn-outline-light btn-floating m-1 rounded-5"><FaGoogle /></a>
+                <a className="btn btn-outline-light btn-floating m-1 rounded-5"><FaInstagram /></a>
 
               </Col>
             </Row>
@@ -49,7 +49,8 @@ function Footer() {
         </Container>
 
         <div className="text-center p-3" style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-          © 2025 Copyright: <a className="text-white">HDE PVT LTD</a>
+          <span>© 2025 HDE PVT LTD. All Rights Reserved. | Designed & Developed by Naresh Sirvi</span>
+          {/* © 2025 Copyright: <a className="text-white">HDE PVT LTD</a> */}
         </div>
       </footer>
 

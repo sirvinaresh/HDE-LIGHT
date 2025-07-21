@@ -10,8 +10,8 @@ import Image from 'react-bootstrap/Image';
 import { useNavigate } from "react-router-dom";
 import Pagination from 'react-bootstrap/Pagination';
 import {APIurl} from '../utils';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
+import { ClipLoader, ScaleLoader } from "react-spinners";
+
 function Show() {
   const navi = useNavigate();
 
@@ -22,10 +22,13 @@ function Show() {
   const [delitem,setdelitem] = useState('');
 
   const [cat, setcat] = useState([]);
-  const [pageNo, setPageNo] = useState(1);
+  const [pageNo, setPageNo] = useState(()=>{
+  return parseInt(sessionStorage.getItem('pageNo')) || 1
+  });
   const [totalPages, setTotalPages] = useState(1);
   const [totalRec , settotalRec] = useState('');
   const [searchope,setsearchope] = useState('');
+  const [loading,setloading] = useState(true);
 
   //data fetch
   const fetchData = () => {
@@ -36,7 +39,8 @@ function Show() {
         setTotalPages(res.data.totalpage);
         settotalRec(res.data.totalRecoard);
       })
-      .catch((err) => console.error("Fetch Error:", err));
+      .catch((err) => console.error("Fetch Error:", err))
+      .finally(()=>setloading(false))
   };
 
   //delete data
@@ -49,10 +53,7 @@ function Show() {
   };
 
   useEffect(() => {
-    const dely = setTimeout(()=>{
-      fetchData();
-    },500)
-    return ()=>clearTimeout(dely)
+    fetchData();
   }, [pageNo,searchope]);
 
 
@@ -62,15 +63,18 @@ function Show() {
       .catch(err => console.log(err));
   }
 
-  
-
   return (
    <>
     <Header/>
-     <div className="container my-5">
+     {
+      loading ?  
+      <div className="d-flex justify-content-center align-items-center"  style={{height:'80vh', width:'100%'}}>
+        <ScaleLoader loading={loading}/>
+      </div>
+      : <div className="container my-5">
        <div className="d-flex justify-content-end ">
         <div className="col-lg-4">
-          <input type="search" className="form-control" id="inputEmail4" placeholder="Search here product ...." onChange={(e)=>{setsearchope(e.target.value)}}/>
+          <input type="search" className="form-control" id="inputEmail4" placeholder="Search here product ...." onChange={(e)=>{setsearchope(e.target.value); setPageNo(1); sessionStorage.removeItem('pageNo');}}/>
         </div>
        </div>
       <h2 className="mt-3">Product Listing</h2>
@@ -115,7 +119,7 @@ function Show() {
                     <td>{item.lname}</td>
                     <td>{item.model}</td>
                     <td className="d-flex justify-content-around">
-                      <span><button className="btn btn-success" onClick={()=>{localStorage.setItem('edititem',JSON.stringify(item)); navi('/home')}}>Edit</button></span>
+                      <span><button className="btn btn-success" onClick={()=>{sessionStorage.setItem('edititem',JSON.stringify(item)); navi('/home')}}>Edit</button></span>
                       <span><button className="btn btn-danger" onClick={()=>{handleShow(); setdelitem(item._id)}}>Delete</button></span>
                     </td>
                   </tr>
@@ -127,9 +131,9 @@ function Show() {
           }
 
           <Pagination className="justify-content-end mt-4 flex-wrap ">
-              <Pagination.Prev disabled={pageNo === 1} onClick={() => setPageNo(pageNo - 1)} />
+              <Pagination.Prev disabled={pageNo === 1} onClick={() => {setPageNo(pageNo - 1); sessionStorage.setItem('pageNo',pageNo-1)}} />
 
-              {pageNo > 2 && <Pagination.Item onClick={() => setPageNo(1)}>1</Pagination.Item>}
+              {pageNo > 2 && <Pagination.Item onClick={() =>{setPageNo(1); sessionStorage.setItem('pageNo',1)}}>1</Pagination.Item>}
               {pageNo > 3 && <Pagination.Ellipsis disabled />}
 
               {[...Array(5)].map((_, i) => {
@@ -139,7 +143,7 @@ function Show() {
                     <Pagination.Item
                       key={page}
                       active={page === pageNo}
-                      onClick={() => setPageNo(page)}
+                      onClick={() =>{setPageNo(page); sessionStorage.setItem('pageNo',page)}}
                     >
                       {page}
                     </Pagination.Item>
@@ -150,12 +154,12 @@ function Show() {
 
               {pageNo < totalPages - 2 && <Pagination.Ellipsis disabled />}
               {pageNo < totalPages - 1 && (
-                <Pagination.Item onClick={() => setPageNo(totalPages)}>
+                <Pagination.Item onClick={() =>{setPageNo(totalPages); sessionStorage.setItem('pageNo',totalPages)}}>
                   {totalPages}
                 </Pagination.Item>
               )}
 
-              <Pagination.Next disabled={pageNo === totalPages} onClick={() => setPageNo(pageNo + 1)} />
+              <Pagination.Next disabled={pageNo === totalPages} onClick={() =>{setPageNo(pageNo + 1); sessionStorage.setItem('pageNo',pageNo+1)}} />
           </Pagination>
 
         </div>
@@ -175,6 +179,7 @@ function Show() {
         </Modal.Footer>
       </Modal>
     </div>
+     }
    </>
   );
 }
