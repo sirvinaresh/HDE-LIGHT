@@ -186,18 +186,19 @@ function Home() {
                 var res = await axios.post(`${APIurl}/update/${values._id}`,formData);
                 toast.success('Product Updated');
                 setTimeout(()=>{
+                    sessionStorage.removeItem('edititem')
                     navi('/show');
+                    resetForm();
+                    setFile(null)
                 },1000)
-                console.log(res.data)
-                localStorage.removeItem('edititem')
             }
             else{
                 var res = await  axios.post(`${APIurl}/`,formData)
-                    toast.success('Product Added')
+                toast.success('Product Added')
+                resetForm();
+                setFile(null)
             }
             
-            resetForm();
-            setFile(null)
 
         } catch (error) {
             console.error("Upload failed:", error.response?.data || error.message);
@@ -215,7 +216,6 @@ function Home() {
         handlechange({ target: { value: editdata.type } }); // set category dropdown
         handlesubcat({ target: { value: editdata.cat } });
     }
-
     setusername(sessionStorage.getItem('name'));
   },[])
  
@@ -288,7 +288,7 @@ function Home() {
                 {/* add , update , reset button */}
                 <div className="col-md-12">
                     <button type="submit" className="btn btn-success">{values._id ? 'Update' : 'Add'}</button>
-                    <button type='button' className='btn btn-danger ms-5' onClick={()=>{resetForm(); localStorage.removeItem('edititem'); setFile(null)}}>Reset</button>
+                    <button type='button' className='btn btn-danger ms-5' onClick={()=>{resetForm(); sessionStorage.removeItem('edititem'); setFile(null)}}>Reset</button>
                 </div>
             </form>
         </Container>
