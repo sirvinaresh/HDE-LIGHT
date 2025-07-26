@@ -158,7 +158,7 @@ function Indoor() {
                            category.map((val, i) => (
                             <li key={i} className='my-4'>
                                 <strong>
-                                    <button className={`in-text btn btn-link p-0 ${active === val.catSlug ? 'active-cat' : ''}`} onClick={() => getCategory(val.catSlug)}>{val.cat}</button>
+                                    <button className={`in-text fw-bold btn btn-link p-0 ${active === val.catSlug ? 'active-cat' : ''}`} onClick={() => getCategory(val.catSlug)}>{val.cat}</button>
                                 </strong>
                                 {val.scat && val.scat.length > 0 && (
                                 <ul>
@@ -184,7 +184,7 @@ function Indoor() {
                             products.map((val,i)=>{
                                 return(
                                     <Col lg={3} md={4} sm={6} xs={6} className='my-3 mt-5 ' key={i}>
-                                        <Card className='border-0 shadow card-dis' style={{minHeight:'auto'}}>
+                                        <Card className='border-0 shadow card-dis'>
                                             <Link to={`/details/${val._id}`} className='stretched-link'></Link>
                                             <Card.Img variant="top" className='p-2' src={val.image} />
                                             <Card.Body>

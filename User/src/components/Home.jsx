@@ -61,13 +61,13 @@ function Home() {
     <>
       <Carousel >
       <Carousel.Item>
-          <img src={require('../images/s5.jpeg')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>
+          <img src={require('../images/n2.png')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>
       </Carousel.Item>
       <Carousel.Item>
         <img src={require('../images/s1.jpeg')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>
       </Carousel.Item>
       <Carousel.Item>
-        <img src={require('../images/s3.jpeg')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>
+        <img src={require('../images/s5.jpeg')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>
       </Carousel.Item>
       <Carousel.Item>
         <img src={require('../images/s4.jpeg')} alt="" style={{height:'80vh' ,width:'100%',objectFit:'cover'}}/>

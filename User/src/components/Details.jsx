@@ -4,9 +4,10 @@ import { useParams } from 'react-router-dom'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Image from 'react-bootstrap/Image';
 import Table from 'react-bootstrap/Table';
 import {APIurl} from '../utils'
+import 'react-inner-image-zoom/lib/styles.min.css';
+import InnerImageZoom from 'react-inner-image-zoom'
 function Details() {
 
      const inputfiled = [
@@ -46,8 +47,9 @@ function Details() {
     <>
         <Container className='my-5'>
             <Row>
-                <Col lg={6} md={6} sm={12} xs={12} className=' text-center'>
-                    <Image src={record.image} className='shadow  rounded-3' fluid />
+                <Col lg={6} md={6} sm={12} xs={12} className=' text-center '>
+                    <InnerImageZoom className='shadow  rounded-3' src={record.image} zoomSrc={record.image} zoomType='hover' zoomScale={1.5} fadeDuration={200} />
+                    {/* <Image src={record.image} className='shadow  rounded-3' fluid /> */}
                 </Col>
                 <Col lg={6} md={6} sm={12} xs={12} className='p-3'>
                     <h1>{record.lname}</h1>

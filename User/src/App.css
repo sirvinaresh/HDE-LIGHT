@@ -32,6 +32,7 @@ ul {
 ul li {
   margin-top: 12px;
   cursor: pointer;
+  /* padding-left: 12px; */
 }
 
 ul li strong {
@@ -67,9 +68,8 @@ ul li strong {
   font-weight: bold;
 }
 
-.card-dis{
-  transition: .3s;
-}
+
+
 .card-dis:hover{
   transform: scale(1.1);
 }
@@ -101,6 +101,19 @@ ul li strong {
   opacity: 1;
 }
 
+.card-dis {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: .3s
+}
+
+.card-dis .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 @media only screen and (max-width: 600px) {
   .cate {
@@ -109,6 +122,10 @@ ul li strong {
   .menu:hover::after,
   .menu.active::after {
     width: 20%;
+  }
+
+  .card-dis{
+    /* min-height: 2rem; */
   }
 }
 
